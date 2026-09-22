@@ -51,7 +51,7 @@ News/
 | `id` | 주소에 쓰이는 고유값. **중복되면 안 됩니다.** 영문·숫자·하이픈만 사용 |
 | `title` | 제목 |
 | `summary` | 홈·목록에 보이는 요약 (2줄까지 표시) |
-| `category` | `politics` `economy` `society` `world` `tech` `culture` `sports` 중 하나 |
+| `category` | `politics` `economy` `society` `school` `world` `tech` `culture` `sports` 중 하나 |
 | `author` | 기자 이름 |
 | `date` | `"YYYY-MM-DD HH:MM"` 형식. 이 값 기준으로 최신순 정렬 |
 | `image` | 대표 사진 주소. **빈칸("")이면 카테고리 색 썸네일이 자동 생성** |

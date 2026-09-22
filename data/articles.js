@@ -10,6 +10,7 @@ window.SITE = {
     { id: "politics", name: "정치" },
     { id: "economy",  name: "경제" },
     { id: "society",  name: "사회" },
+    { id: "school",   name: "학교" },
     { id: "world",    name: "국제" },
     { id: "tech",     name: "IT·과학" },
     { id: "culture",  name: "문화" },
