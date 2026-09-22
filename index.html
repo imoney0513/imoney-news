@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IMONEY 뉴스</title>
+<meta name="description" content="오늘의 소식을 가장 빠르게 전하는 IMONEY 뉴스">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="home">
+
+  <div id="site-header"></div>
+
+  <div class="wrap">
+    <div id="ticker"></div>
+
+    <!-- 톱기사 + 헤드라인 -->
+    <div class="hero" id="hero"></div>
+
+    <div class="with-side" style="margin-top:34px">
+      <div id="home-main">
+        <!-- 최신 뉴스 -->
+        <section class="section" style="margin-top:0">
+          <div class="section-head"><h2>최신 뉴스</h2></div>
+          <div id="latest"></div>
+        </section>
+
+        <!-- 카테고리별 섹션 -->
+        <div id="cat-sections"></div>
+      </div>
+
+      <aside>
+        <div class="side-box">
+          <h3>실시간 주요뉴스</h3>
+          <div id="rank"></div>
+        </div>
+        <div class="side-box">
+          <h3>카테고리</h3>
+          <div id="side-cats"></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="footer" id="site-footer"></footer>
+
+  <script src="data/articles.js"></script>
+  <script src="assets/site.js"></script>
+</body>
+</html>

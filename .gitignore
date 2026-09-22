@@ -1,0 +1,7 @@
+# 로컬 미리보기용 설정 (배포에 불필요)
+.claude/
+
+# OS 생성 파일
+Thumbs.db
+desktop.ini
+.DS_Store
