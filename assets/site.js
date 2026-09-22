@@ -5,9 +5,9 @@
 (function () {
   "use strict";
 
-  var SITE = window.SITE || {};
-  var ARTICLES = window.ARTICLES || [];
-  var CATS = SITE.categories || [];
+  var SITE = {};
+  var ARTICLES = [];
+  var CATS = [];
 
   /* ---------- 작은 도구들 ---------- */
 
@@ -380,7 +380,30 @@
 
   /* ---------- 시작 ---------- */
 
+  // data/articles.js 를 직접 불러온다.
+  // GitHub Pages 는 파일에 10분 캐시를 걸기 때문에, 기사를 새로 올려도
+  // 방문자 브라우저가 옛날 목록을 보여줄 수 있다. 주소 뒤에 분 단위 값을
+  // 붙여 항상 최신 목록을 받아오게 한다. (file:// 로 직접 열 때는 붙이지 않음)
+  function loadData(done) {
+    if (window.ARTICLES) return done();   // HTML 에서 이미 불러왔으면 그대로 사용
+
+    var src = "data/articles.js";
+    if (location.protocol === "http:" || location.protocol === "https:") {
+      src += "?v=" + Math.floor(Date.now() / 60000);
+    }
+
+    var s = document.createElement("script");
+    s.src = src;
+    s.onload = done;
+    s.onerror = function () { done(); };
+    document.head.appendChild(s);
+  }
+
   function start() {
+    SITE = window.SITE || {};
+    ARTICLES = window.ARTICLES || [];
+    CATS = SITE.categories || [];
+
     var page = document.body.getAttribute("data-page");
 
     if (page === "home") { renderChrome("home"); renderHome(); }
@@ -390,6 +413,8 @@
     else { renderChrome(""); }
   }
 
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);
-  else start();
+  function run() { loadData(start); }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);
+  else run();
 })();

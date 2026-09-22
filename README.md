@@ -117,6 +117,11 @@ git add -A && git commit -m "기사 추가" && git push
 
 푸시하면 **보통 1분 안에** 사이트에 반영됩니다.
 
+> GitHub Pages 는 파일마다 10분 캐시를 겁니다. 그래서 `data/articles.js` 는
+> `assets/site.js` 가 주소 뒤에 분 단위 값을 붙여 직접 불러옵니다.
+> 덕분에 기사를 새로 올리면 방문자도 바로 볼 수 있습니다.
+> (HTML·CSS 는 최대 10분 늦게 반영될 수 있습니다.)
+
 ### 도메인 연결하기
 
 1. 저장소 → Settings → Pages → Custom domain 에 도메인 입력 후 Save
