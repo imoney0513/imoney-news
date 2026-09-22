@@ -42,7 +42,7 @@ window.ARTICLES = [
     category: "tech",
     author: "IMONEY 뉴스 편집팀",
     date: "2026-09-22 19:00",
-    image: "",
+    image: "assets/images/imoney-chat.png",
     featured: true,
     tags: ["IMONEY CHAT", "채팅", "웹앱", "AI"],
     body: `
