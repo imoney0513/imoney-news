@@ -217,7 +217,12 @@ a:hover .thumb img { transform: scale(1.03); }
   border-left: 3px solid var(--accent); font-size: 17px; color: var(--ink-2);
 }
 .article-body figure { margin: 28px 0; }
-.article-body figure img { border-radius: var(--radius); }
+.article-body figure img {
+  border-radius: var(--radius);
+  max-height: 78vh;        /* 세로로 긴 사진이 화면을 다 차지하지 않도록 */
+  width: auto;
+  margin: 0 auto;
+}
 .article-body figcaption { margin-top: 8px; font-size: 13px; color: var(--muted); }
 .article-body .sample-note {
   margin-top: 32px; font-size: 13px; color: var(--muted);
