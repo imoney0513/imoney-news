@@ -98,3 +98,33 @@ News/
 
 현재 들어있는 기사 12건은 **화면 확인용 샘플**이며, 등장하는 인물·기관은 모두 가상입니다.
 실제 기사를 채울 때 통째로 지우고 쓰시면 됩니다.
+
+---
+
+## 배포 (GitHub Pages)
+
+- 저장소: https://github.com/imoney0513/imoney-news (public)
+- 사이트: https://imoney0513.github.io/imoney-news/
+- 배포 방식: `main` 브랜치의 루트(`/`)를 그대로 서비스 (빌드 과정 없음)
+
+### 기사 올리는 법
+
+`data/articles.js` 를 수정하고 저장한 뒤, 이 폴더에서:
+
+```bash
+git add -A && git commit -m "기사 추가" && git push
+```
+
+푸시하면 **보통 1분 안에** 사이트에 반영됩니다.
+
+### 도메인 연결하기
+
+1. 저장소 → Settings → Pages → Custom domain 에 도메인 입력 후 Save
+   (저장소 루트에 도메인만 한 줄 적은 `CNAME` 파일을 만들어도 동일)
+2. 도메인 업체 DNS 설정에서
+   - `www.내도메인.com` 을 쓸 경우 → CNAME 레코드: `imoney0513.github.io`
+   - `내도메인.com` (apex) 을 쓸 경우 → A 레코드 4개:
+     `185.199.108.153` / `185.199.109.153` / `185.199.110.153` / `185.199.111.153`
+3. DNS 반영(보통 몇 분~수 시간) 후 Settings → Pages 에서 **Enforce HTTPS** 체크
+
+도메인을 연결하면 저장소 이름과 상관없이 `https://내도메인.com/` 루트로 서비스됩니다.
