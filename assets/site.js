@@ -311,7 +311,7 @@
         "</header>" +
 
         '<figure class="article-hero">' + thumb(a) +
-          "<figcaption>" + esc(catName(a.category)) + " · " + esc(a.title) + "</figcaption></figure>" +
+          "<figcaption>" + esc(a.caption || (catName(a.category) + " · " + a.title)) + "</figcaption></figure>" +
 
         '<div class="article-body">' + (a.body || "<p>본문이 없습니다.</p>") + "</div>" +
 

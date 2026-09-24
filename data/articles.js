@@ -30,6 +30,7 @@ window.SITE = {
    author   : 기자 이름
    date     : "YYYY-MM-DD HH:MM"   (최신순 정렬 기준)
    image    : 사진 주소. ""(빈칸)이면 자동 썸네일이 만들어집니다
+   caption  : (선택) 기사 대표 사진 아래 설명·출처. 남의 사진이면 꼭 "○○ 제공" 을 적으세요
    featured : true 면 홈 상단 대표기사 후보 (그중 가장 최신 1건이 톱기사)
    tags     : 관련 키워드
    body     : 본문. <p>문단</p> 으로 감싸주세요.
@@ -124,7 +125,8 @@ window.ARTICLES = [
     category: "tech",
     author: "IMONEY 뉴스 편집팀",
     date: "2026-09-22 23:00",
-    image: "",
+    image: "assets/images/cloned-monkey.jpg",
+    caption: "체세포 핵이식으로 태어나 2년 넘게 살아 있는 붉은털원숭이. 네이처 커뮤니케이션즈 제공",
     featured: false,
     tags: ["생명기술", "핵이식", "유전자재조합", "복제"],
     body: `
