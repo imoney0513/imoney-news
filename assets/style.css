@@ -88,12 +88,20 @@ img { max-width: 100%; display: block; }
 .nav .wrap { display: flex; gap: 4px; overflow-x: auto; }
 .nav .wrap::-webkit-scrollbar { height: 0; }
 .nav a {
+  position: relative;
   padding: 13px 16px; font-size: 16px; font-weight: 700;
   white-space: nowrap; color: var(--ink-2);
-  border-bottom: 3px solid transparent; margin-bottom: -2px;
+  transition: color .2s;
+}
+/* 메뉴 밑줄 : 가운데서 양옆으로 퍼진다 */
+.nav a::after {
+  content: ""; position: absolute; left: 12px; right: 12px; bottom: 0; height: 3px;
+  background: var(--accent); border-radius: 3px 3px 0 0;
+  transform: scaleX(0); transition: transform .28s cubic-bezier(.2,.7,.2,1);
 }
 .nav a:hover { color: var(--accent); }
-.nav a.is-active { color: var(--accent); border-bottom-color: var(--accent); }
+.nav a:hover::after, .nav a.is-active::after { transform: scaleX(1); }
+.nav a.is-active { color: var(--accent); }
 
 /* ---------- 속보 띠 ---------- */
 .ticker {
@@ -282,4 +290,63 @@ a:hover .thumb img { transform: scale(1.03); }
   .hero-main h1 { font-size: 23px; }
   .prevnext { grid-template-columns: 1fr; }
   .topbar-links { display: none; }
+}
+
+/* ============================================================
+   애니메이션
+   (기기에서 "동작 줄이기"를 켠 사람에게는 맨 아래 규칙으로 모두 꺼진다)
+   ============================================================ */
+
+/* 스크롤하면 아래에서 떠오르기 — site.js 가 .reveal / .is-in 을 붙였다 뗀다 */
+.reveal { opacity: 0; }
+.reveal.is-in { animation: rise .65s cubic-bezier(.2,.7,.2,1) var(--d, 0s) both; }
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* 카드에 마우스를 올리면 살짝 떠오르고 사진에 그림자 */
+.card, .hero-main { transition: transform .25s ease; }
+.card:hover, .hero-main:hover { transform: translateY(-3px); }
+.thumb { transition: box-shadow .25s ease; }
+a:hover .thumb { box-shadow: 0 14px 26px -16px rgba(0,0,0,.5); }
+
+.searchbox button { transition: background-color .2s, border-color .2s; }
+.tag { transition: color .2s, border-color .2s; }
+
+/* 속보 띠 : 최신 기사 5건이 위로 넘어가며 바뀐다 */
+.ticker-window { position: relative; flex: 1; min-width: 0; height: 1.6em; overflow: hidden; }
+.ticker-window .ticker-item {
+  position: absolute; inset: 0; display: block; line-height: 1.6em;
+  transform: translateY(100%); opacity: 0; visibility: hidden;
+  transition: transform .5s ease, opacity .5s ease, visibility 0s linear .5s;
+}
+.ticker-window .ticker-item.is-active,
+.ticker-window .ticker-item.is-leaving {
+  visibility: visible;
+  transition: transform .5s ease, opacity .5s ease, visibility 0s;
+}
+.ticker-window .ticker-item.is-active  { transform: none; opacity: 1; }
+.ticker-window .ticker-item.is-leaving { transform: translateY(-100%); opacity: 0; }
+
+/* 속보 배지 안의 깜빡이는 점 */
+.live-dot {
+  display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+  background: #fff; margin-right: 6px; vertical-align: 1px;
+  animation: pulse 1.6s ease-in-out infinite;
+}
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
+
+/* 기사 페이지 맨 위 읽기 진행 막대 */
+.read-progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 100;
+  background: var(--accent); transform-origin: 0 50%; transform: scaleX(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important; animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important; transition-delay: 0s !important;
+  }
+  .reveal { opacity: 1; }
 }

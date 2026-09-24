@@ -9,6 +9,9 @@
   var ARTICLES = [];
   var CATS = [];
 
+  // 기기에서 "동작 줄이기"를 켜 둔 사람에게는 움직이는 효과를 쓰지 않는다
+  var reduceMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+
   /* ---------- 작은 도구들 ---------- */
 
   function esc(s) {
@@ -216,10 +219,14 @@
       }).slice(0, 4 - sides.length));
     }
 
-    // 속보 띠 : 가장 최신 기사
+    // 속보 띠 : 최신 기사 5건이 차례로 넘어간다
     setHTML("ticker",
-      '<div class="ticker"><span class="ticker-label">속보</span>' +
-      '<a class="ticker-item" href="' + url.article(all[0]) + '">' + esc(all[0].title) + "</a></div>"
+      '<div class="ticker"><span class="ticker-label"><i class="live-dot"></i>속보</span>' +
+      '<div class="ticker-window" id="ticker-window">' +
+      all.slice(0, 5).map(function (a, i) {
+        return '<a class="ticker-item' + (i === 0 ? " is-active" : "") + '" href="' + url.article(a) + '">' + esc(a.title) + "</a>";
+      }).join("") +
+      "</div></div>"
     );
 
     // 톱기사
@@ -378,6 +385,89 @@
     if (input) input.value = q;
   }
 
+  /* ---------- 애니메이션 ---------- */
+
+  // 카드·상자들이 화면에 들어올 때 아래에서 떠오르게 한다.
+  // 같은 줄의 카드는 조금씩 늦게 시작해서 차례로 올라온다.
+  function animateIn() {
+    if (reduceMotion || !("IntersectionObserver" in window)) return;
+
+    var targets = document.querySelectorAll(
+      ".hero-main, .hero-side, .card, .list-item, .side-box, .section-head, " +
+      ".article-head, .article-hero, .tag-row, .prevnext"
+    );
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        io.unobserve(e.target);
+        e.target.classList.add("is-in");
+      });
+    }, { rootMargin: "0px 0px -6% 0px", threshold: 0.05 });
+
+    Array.prototype.forEach.call(targets, function (el) {
+      var i = Array.prototype.indexOf.call(el.parentNode.children, el);
+      el.style.setProperty("--d", Math.min(i, 5) * 70 + "ms");
+      el.classList.add("reveal");
+
+      // 다 떠오르면 클래스를 떼서, 이후 마우스 효과가 원래대로 동작하게 한다
+      el.addEventListener("animationend", function done(ev) {
+        if (ev.target !== el) return;
+        el.classList.remove("reveal", "is-in");
+        el.style.removeProperty("--d");
+        el.removeEventListener("animationend", done);
+      });
+
+      io.observe(el);
+    });
+  }
+
+  // 속보 띠 : 4초마다 다음 기사로 넘긴다. 마우스를 올리면 멈춘다.
+  function startTicker() {
+    var box = document.getElementById("ticker-window");
+    if (!box || reduceMotion) return;
+    var items = box.querySelectorAll(".ticker-item");
+    if (items.length < 2) return;
+
+    var i = 0, paused = false;
+    box.addEventListener("mouseenter", function () { paused = true; });
+    box.addEventListener("mouseleave", function () { paused = false; });
+
+    setInterval(function () {
+      if (paused || document.hidden) return;
+      var cur = items[i];
+      i = (i + 1) % items.length;
+      cur.classList.remove("is-active");
+      cur.classList.add("is-leaving");
+      items[i].classList.add("is-active");
+      setTimeout(function () { cur.classList.remove("is-leaving"); }, 600);
+    }, 4000);
+  }
+
+  // 기사 페이지 맨 위에 얼마나 읽었는지 보여주는 막대
+  function startReadProgress() {
+    var art = document.querySelector(".article");
+    if (!art) return;
+
+    var bar = document.createElement("div");
+    bar.className = "read-progress";
+    document.body.appendChild(bar);
+
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var r = art.getBoundingClientRect();
+      var total = r.height - window.innerHeight;
+      var p = total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 1;
+      bar.style.transform = "scaleX(" + p + ")";
+    }
+    window.addEventListener("scroll", function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+  }
+
   /* ---------- 시작 ---------- */
 
   // data/articles.js 를 직접 불러온다.
@@ -411,6 +501,10 @@
     else if (page === "category") { renderChrome(renderCategory()); }
     else if (page === "search") { renderChrome(""); renderSearch(); }
     else { renderChrome(""); }
+
+    if (page === "home") startTicker();
+    if (page === "article") startReadProgress();
+    animateIn();
   }
 
   function run() { loadData(start); }
