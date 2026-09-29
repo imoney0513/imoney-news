@@ -67,16 +67,18 @@ window.ARTICLES = [
   <li><strong>문제를 겪는 사람의 생활에서 출발한다</strong> — 말라리아와 전기 부족이라는 구체적인 문제를 겨냥했다.</li>
 </ul>
 
-<h2>전망 — 편집팀의 시각</h2>
-<p><strong>사운드 스프레이.</strong> 적정기술은 '가난한 사람들을 위한 저렴한 물건'에 그치지 않고, 인간의 본능과 첨단 기술을 결합해 외부의 도움 없이도 스스로 삶을 개선하도록 돕는 방향으로 발전할 것이다.</p>
-<p><strong>소켓볼.</strong> 내부 발전기와 축전지 부품이 발전함에 따라, 더 적게 차도 더 많은 전기를 저장할 수 있게 되어 효율성이 크게 올라갈 것이다.</p>
+<h2>IMONEY의 시각</h2>
+<p><strong>사운드 스프레이</strong></p>
+<p>'가난한 사람들을 위한 저렴한 물건'에 그치지 않고, 인간의 본능과 첨단 기술을 결합하여 외부의 도움 없이도 스스로 삶을 개선하도록 돕는 방향으로 발전할 것입니다.</p>
+<p><strong>소켓볼</strong></p>
+<p>내부 발전기와 축전지 부품이 발전함에 따라, 더 적게 차도 더 많은 전기를 저장할 수 있게 되어 효율성이 크게 올라갈 것입니다.</p>
 
 <h2>출처</h2>
 <ul>
-  <li>Design Jungle — 「적정 기술과 모기 퇴치 기구 '사운드 스프레이'」 (2013년 12월 30일, 배상민 KAIST 교수, 타이포그래피 서울 기사 제공)<br>
-    <a href="https://www.jungle.co.kr/magazine/4758">jungle.co.kr</a></li>
+  <li>Design Jungle — 「적정 기술과 모기 퇴치 기구 '사운드 스프레이'」 (2013년 12월 30일)<br>
+    <a href="https://m.jungle.co.kr/magazine/4758">https://m.jungle.co.kr/magazine/4758</a></li>
   <li>신규장각 — 「[적정기술] 축구 하면서 전기를 만드는 소켓볼(SoccketBall)」 (2022년 10월 17일)<br>
-    <a href="http://www.sinnara.kr/119/?bmode=view&idx=13196768">sinnara.kr</a></li>
+    <a href="http://www.sinnara.kr/119/?bmode=view&idx=13196768">http://www.sinnara.kr/119/?bmode=view&idx=13196768</a></li>
 </ul>
 `
   },
