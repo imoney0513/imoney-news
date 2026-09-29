@@ -350,3 +350,7 @@ a:hover .thumb { box-shadow: 0 14px 26px -16px rgba(0,0,0,.5); }
   }
   .reveal { opacity: 1; }
 }
+
+/* 긴 주소(출처 링크 등)가 화면 폭을 밀어내지 않도록 */
+.with-side > * { min-width: 0; }
+.article-body a { overflow-wrap: anywhere; }
